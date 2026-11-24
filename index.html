@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Home · Body Language Studio</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --surface-dim: #efefef;
+      --placeholder-bg: #e8e8e8;
+      --border: #bbbbbb;
+      --border-dark: #555555;
+      --ink: #111111;
+      --ink-secondary: #555555;
+      --ink-inverse: #ffffff;
+      --disabled-bg: #e0e0e0;
+      --disabled-ink: #444444;
+      --radius: 8px;
+      --max-w: 1120px;
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-5: 40px;
+      --space-6: 48px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+
+    button, input, select {
+      font-family: inherit;
+      font-size: 16px;
+      color: var(--ink);
+      accent-color: var(--ink);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    main:focus {
+      outline: none;
+    }
+
+    h1, h2, h3, p, ul, ol {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2);
+    }
+
+    h2 {
+      font-size: 1.375rem;
+      line-height: 1.3;
+      margin-bottom: var(--space-2);
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      line-height: 1.35;
+      margin-bottom: var(--space-1);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--space-3);
+    }
+
+    .muted {
+      color: var(--ink-secondary);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: var(--space-1);
+      background: var(--ink);
+      color: var(--ink-inverse);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius);
+      text-decoration: none;
+      z-index: 2000;
+    }
+
+    .skip-link:focus {
+      left: var(--space-2);
+    }
+
+    /* Header & Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      min-height: 72px;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link, .nav-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: var(--space-1) 12px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      cursor: pointer;
+      line-height: 1.25;
+      font-weight: 500;
+    }
+
+    .nav-link:hover, .nav-trigger:hover {
+      background: var(--surface);
+    }
+
+    .nav-trigger[aria-expanded="true"] {
+      background: var(--surface);
+      border-color: var(--border);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 224px;
+      background: var(--bg);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      padding: var(--space-1);
+      list-style: none;
+      margin: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: none;
+      z-index: 600;
+    }
+
+    .nav-item.open > .dropdown-menu {
+      display: block;
+    }
+
+    @media (hover: hover) and (min-width: 961px) {
+      .nav-item:hover > .dropdown-menu {
+        display: block;
+      }
+    }
+
+    .dropdown-menu a,
+    .dropdown-menu button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: var(--space-1) 12px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu button:hover {
+      background: var(--surface);
+    }
+
+    .dropdown-menu a[aria-current="page"] {
+      font-weight: 700;
+      background: var(--surface);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      white-space: nowrap;
+    }
+
+    .portal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: transparent;
+      border: none;
+      padding: var(--space-1) 4px;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: var(--space-1) var(--space-2);
+      border: 1px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .mobile-drawer {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: var(--space-2) 0 var(--space-3);
+    }
+
+    .mobile-drawer.open {
+      display: block;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .mobile-nav-list a,
+    .mobile-nav-list button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: var(--space-1) 12px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: transparent;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .mobile-nav-list a:hover,
+    .mobile-nav-list button:hover {
+      background: var(--surface);
+    }
+
+    .mobile-sublist {
+      list-style: none;
+      margin: 4px 0 var(--space-1) var(--space-2);
+      padding-left: var(--space-2);
+      border-left: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mobile-actions {
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-1);
+      min-height: 44px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--ink);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      line-height: 1.25;
+      transition: background-color 0.12s ease;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--ink-inverse);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #333333;
+    }
+
+    .btn-outline {
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      background: var(--surface);
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: 6px 14px;
+    }
+
+    .btn:disabled {
+      background: var(--disabled-bg);
+      color: var(--disabled-ink);
+      border-color: var(--border);
+      cursor: not-allowed;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 0;
+      border: none;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Main Content Layout */
+    main {
+      flex: 1 0 auto;
+      padding: var(--space-4) 0 var(--space-6);
+    }
+
+    main.has-sticky-bar {
+      padding-bottom: 120px;
+    }
+
+    .section {
+      margin-bottom: var(--space-6);
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .narrow {
+      max-width: 780px;
+    }
+
+    /* Cards & Placeholders */
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-3);
+    }
+
+    .card-surface {
+      background: var(--surface);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .placeholder-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--placeholder-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 160px;
+    }
+
+    .placeholder-box.hero-photo {
+      min-height: 300px;
+    }
+
+    .placeholder-box.map-photo {
+      min-height: 200px;
+    }
+
+    .placeholder-box.small-photo {
+      min-height: 120px;
+      margin-bottom: var(--space-2);
+    }
+
+    .placeholder-cross {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .placeholder-cross line {
+      stroke: var(--border);
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .placeholder-label {
+      position: relative;
+      z-index: 1;
+      padding: 4px 12px;
+      background: var(--placeholder-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--ink-secondary);
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-4);
+      align-items: center;
+      padding: var(--space-2) 0 var(--space-4);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-copy p {
+      color: var(--ink-secondary);
+      margin-bottom: var(--space-3);
+      max-width: 52ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    /* Step Number Pill */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--ink);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+      background: var(--bg);
+    }
+
+    /* Clickable Age Cards */
+    .age-card {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-2);
+      cursor: pointer;
+    }
+
+    .age-card:hover {
+      border-color: var(--ink);
+      background: var(--surface);
+    }
+
+    .quote-card {
+      border-left: 4px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .quote-text {
+      font-style: italic;
+      margin-bottom: var(--space-1);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      margin-bottom: var(--space-2);
+      color: var(--ink-secondary);
+    }
+
+    .breadcrumb ol {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-1);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .breadcrumb li + li::before {
+      content: "/";
+      margin-right: var(--space-1);
+      color: var(--ink-secondary);
+    }
+
+    .breadcrumb button {
+      border: none;
+      background: transparent;
+      padding: 0;
+      color: var(--ink);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Trial Terms Tiles */
+    .term-tile {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      border: 1px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--surface);
+      font-weight: 700;
+    }
+
+    .glyph-box {
+      flex: 0 0 40px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      font-weight: 700;
+    }
+
+    /* Details / FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    details.faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      padding: var(--space-2) var(--space-3);
+    }
+
+    details.faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.faq-item summary::after {
+      content: "+";
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    details.faq-item[open] summary::after {
+      content: "−";
+    }
+
+    details.faq-item p {
+      margin-top: var(--space-2);
+      margin-bottom: 0;
+      color: var(--ink-secondary);
+    }
+
+    /* Stepper */
+    .stepper {
+      list-style: none;
+      margin: 0 0 var(--space-3);
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .stepper li {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      color: var(--ink-secondary);
+    }
+
+    .stepper li.current {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .stepper li.done {
+      color: var(--ink);
+    }
+
+    .stepper-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-dark);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .stepper li.current .stepper-num {
+      background: var(--ink);
+      color: var(--ink-inverse);
+      border-color: var(--ink);
+    }
+
+    .stepper li.done .stepper-num {
+      background: var(--surface);
+      border-color: var(--ink);
+    }
+
+    .stepper-sep {
+      color: var(--ink-secondary);
+      user-select: none;
+    }
+
+    /* Forms & Inputs */
+    .field {
+      margin-bottom: var(--space-3);
+    }
+
+    .field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .input, .select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .input::placeholder {
+      color: var(--ink-secondary);
+      opacity: 1;
+    }
+
+    .input[aria-invalid="true"] {
+      border: 2px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .field-error {
+      margin-top: 6px;
+      margin-bottom: 0;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .field-hint {
+      margin-top: 6px;
+      margin-bottom: 0;
+      color: var(--ink-secondary);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-1);
+      margin-bottom: var(--space-3);
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+
+    .checkbox-row label {
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Classes Filter Bar */
+    .age-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: var(--space-2);
+    }
+
+    .age-select-wrap {
+      min-width: 220px;
+      flex: 0 1 260px;
+    }
+
+    .birthday-wrap {
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--border);
+      max-width: 300px;
+    }
+
+    .filter-group {
+      margin-top: var(--space-3);
+    }
+
+    .filter-label {
+      font-weight: 700;
+      margin-bottom: var(--space-1);
+      display: block;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+    }
+
+    .chip {
+      min-height: 38px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-dark);
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .chip:hover {
+      background: var(--surface);
+    }
+
+    .chip[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--ink-inverse);
+      border-color: var(--ink);
+    }
+
+    /* Class Cards */
+    .class-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .class-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-3);
+      background: var(--bg);
+    }
+
+    .class-card.selected {
+      border: 2px solid var(--ink);
+      background: var(--bg);
+    }
+
+    .class-card.full {
+      background: var(--surface-dim);
+      border-style: dashed;
+      border-color: var(--border-dark);
+      color: var(--ink-secondary);
+    }
+
+    .class-card.full h3 {
+      color: var(--ink-secondary);
+    }
+
+    .class-card-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .class-meta {
+      color: var(--ink-secondary);
+      margin-bottom: 4px;
+    }
+
+    .class-status {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .selected-pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 4px;
+      background: var(--ink);
+      color: var(--ink-inverse);
+      font-weight: 700;
+      margin-left: var(--space-1);
+      vertical-align: middle;
+    }
+
+    .date-picker-panel {
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--border);
+    }
+
+    .date-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+
+    .date-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 12px var(--space-2);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      background: var(--bg);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .date-option:hover {
+      background: var(--surface);
+    }
+
+    .date-option.checked {
+      border: 2px solid var(--ink);
+      background: var(--surface);
+      font-weight: 700;
+    }
+
+    .date-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      flex: 0 0 auto;
+    }
+
+    /* Sticky Selection Bar */
+    .sticky-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 400;
+      background: var(--bg);
+      border-top: 2px solid var(--ink);
+      padding: var(--space-2) 0;
+    }
+
+    .sticky-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .sticky-summary {
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* Summary & Confirmation */
+    .summary-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .summary-header h2 {
+      margin-bottom: 0;
+    }
+
+    .detail-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-2);
+      margin: 0;
+    }
+
+    .detail-list dt {
+      color: var(--ink-secondary);
+      font-weight: 500;
+    }
+
+    .detail-list dd {
+      margin: 2px 0 0;
+      font-weight: 700;
+    }
+
+    .no-card-note {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 12px var(--space-2);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: var(--space-3);
+      font-weight: 600;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .confirm-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-3);
+      align-items: stretch;
+    }
+
+    .check-list {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .check-list li {
+      margin-bottom: var(--space-1);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: var(--space-4) 0;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    .footer-meta p {
+      margin-bottom: 4px;
+      color: var(--ink-secondary);
+    }
+
+    .footer-meta strong {
+      color: var(--ink);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .footer-links button {
+      border: none;
+      background: transparent;
+      padding: 4px 0;
+      text-decoration: underline;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .social-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .social-placeholder {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 36px;
+      padding: 0 10px;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      background: var(--placeholder-bg);
+      color: var(--ink);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: var(--space-3);
+      transform: translateX(-50%) translateY(16px);
+      background: #222222;
+      color: #ffffff;
+      border: 1px solid #000000;
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      z-index: 1200;
+      max-width: calc(100vw - 32px);
+      text-align: center;
+    }
+
+    .toast.above-sticky {
+      bottom: 92px;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .desktop-nav,
+      .header-actions {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .confirm-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 var(--space-2);
+      }
+
+      h1 {
+        font-size: 1.625rem;
+      }
+
+      .grid-2,
+      .date-options,
+      .detail-list {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-bar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .sticky-bar-inner .btn {
+        width: 100%;
+      }
+
+      .toast.above-sticky {
+        bottom: 124px;
+      }
+
+      main.has-sticky-bar {
+        padding-bottom: 152px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#app">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home">BODY LANGUAGE STUDIO</a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <button type="button" class="nav-link" data-proto-toast="Not part of this prototype">Classes</button>
+          </li>
+          <li class="nav-item" id="families-nav-item">
+            <button type="button" class="nav-trigger" id="families-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="families-dropdown">
+              Families <span aria-hidden="true">▾</span>
+            </button>
+            <ul class="dropdown-menu" id="families-dropdown" role="menu">
+              <li role="none"><a role="menuitem" href="#trial" id="nav-free-trial">Free Trial Class</a></li>
+              <li role="none"><button type="button" role="menuitem" data-proto-toast="Not part of this prototype">Tuition &amp; Fees</button></li>
+              <li role="none"><button type="button" role="menuitem" data-proto-toast="Not part of this prototype">Policies</button></li>
+              <li role="none"><button type="button" role="menuitem" data-proto-toast="Not part of this prototype">FAQ</button></li>
+              <li role="none"><button type="button" role="menuitem" data-proto-toast="Not part of this prototype">Studio Calendar</button></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" data-proto-toast="Not part of this prototype">Performances</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" data-proto-toast="Not part of this prototype">About</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" data-proto-toast="Not part of this prototype">Contact</button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn btn-outline btn-sm" data-proto-toast="Not part of this prototype">Register</button>
+        <button type="button" class="portal-link" data-proto-toast="Not part of this prototype">Parent Portal <span aria-hidden="true">↗</span></button>
+      </div>
+
+      <button type="button" class="menu-toggle" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer">Menu</button>
+    </div>
+
+    <div class="mobile-drawer" id="mobile-drawer">
+      <div class="container">
+        <nav aria-label="Mobile navigation">
+          <ul class="mobile-nav-list">
+            <li><button type="button" data-proto-toast="Not part of this prototype">Classes</button></li>
+            <li>
+              <button type="button" id="mobile-families-toggle" aria-expanded="true" aria-controls="mobile-families-list">Families ▾</button>
+              <ul class="mobile-sublist" id="mobile-families-list">
+                <li><a href="#trial">Free Trial Class</a></li>
+                <li><button type="button" data-proto-toast="Not part of this prototype">Tuition &amp; Fees</button></li>
+                <li><button type="button" data-proto-toast="Not part of this prototype">Policies</button></li>
+                <li><button type="button" data-proto-toast="Not part of this prototype">FAQ</button></li>
+                <li><button type="button" data-proto-toast="Not part of this prototype">Studio Calendar</button></li>
+              </ul>
+            </li>
+            <li><button type="button" data-proto-toast="Not part of this prototype">Performances</button></li>
+            <li><button type="button" data-proto-toast="Not part of this prototype">About</button></li>
+            <li><button type="button" data-proto-toast="Not part of this prototype">Contact</button></li>
+          </ul>
+          <div class="mobile-actions">
+            <button type="button" class="btn btn-outline btn-sm" data-proto-toast="Not part of this prototype">Register</button>
+            <button type="button" class="portal-link" data-proto-toast="Not part of this prototype">Parent Portal <span aria-hidden="true">↗</span></button>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-meta">
+        <p><strong>Body Language Studio</strong></p>
+        <p>3155 NE Sunset Blvd, Renton, WA 98056 · (425) 255-1277</p>
+        <p>Office hours: Mon 6–7 PM, Tue &amp; Thu 4–7 PM</p>
+      </div>
+      <div>
+        <div class="footer-links">
+          <button type="button" data-proto-toast="Not part of this prototype">Privacy Policy</button>
+          <button type="button" data-proto-toast="Not part of this prototype">Mailing List</button>
+          <div class="social-row" aria-label="Social links">
+            <button type="button" class="social-placeholder" data-proto-toast="Not part of this prototype" aria-label="Instagram">IG</button>
+            <button type="button" class="social-placeholder" data-proto-toast="Not part of this prototype" aria-label="Facebook">FB</button>
+            <button type="button" class="social-placeholder" data-proto-toast="Not part of this prototype" aria-label="YouTube">YT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'bls_trial_prototype_state_v1';
+      const STUDIO_ADDRESS = '3155 NE Sunset Blvd, Renton, WA 98056';
+
+      // Fixed prototype reference date: Nov 23, 2026
+      const TODAY_YEAR = 2026;
+      const TODAY_MONTH = 11; // 1-12
+      const TODAY_DAY = 23;
+
+      const DEFAULT_STATE = {
+        ageSelect: '',
+        useBirthday: false,
+        birthday: '',
+        computedAge: null,
+        birthdayError: '',
+        styleFilter: 'All',
+        dayFilter: 'Any',
+        selectedClassId: null,
+        selectedDate: null,
+        parentName: '',
+        email: '',
+        phone: '',
+        childName: '',
+        childAgeText: '',
+        smsReminder: false,
+        booked: false
+      };
+
+      const CLASSES = [
+        // Ages 5-6
+        {
+          id: '56-breaking-mon',
+          name: 'Intro. to Breaking',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Mon',
+          weekday: 1,
+          dayGroup: 'Weekdays',
+          time: '4:00-4:45 PM',
+          style: 'Breaking',
+          status: '1 spot left',
+          full: false
+        },
+        {
+          id: '56-breaking-wed',
+          name: 'Intro. to Breaking',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Wed',
+          weekday: 3,
+          dayGroup: 'Weekdays',
+          time: '4:35-5:20 PM',
+          style: 'Breaking',
+          status: 'Full',
+          full: true
+        },
+        {
+          id: '56-breaking-sat',
+          name: 'Intro. to Breaking',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Sat',
+          weekday: 6,
+          dayGroup: 'Saturday',
+          time: '10:00-10:45 AM',
+          style: 'Breaking',
+          status: '1 spot left',
+          full: false
+        },
+        {
+          id: '56-ballet-tue',
+          name: 'Intro. to Ballet',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Tue',
+          weekday: 2,
+          dayGroup: 'Weekdays',
+          time: '4:10-4:40 PM',
+          style: 'Ballet',
+          status: '8 spots open',
+          full: false
+        },
+        {
+          id: '56-acro-tue',
+          name: 'AcroDance',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Tue',
+          weekday: 2,
+          dayGroup: 'Weekdays',
+          time: '4:10-4:40 PM',
+          style: 'Acro',
+          status: '3 spots open',
+          full: false
+        },
+        {
+          id: '56-hiphop-wed',
+          name: 'Intro. to Hip-Hop',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Wed',
+          weekday: 3,
+          dayGroup: 'Weekdays',
+          time: '4:00-4:30 PM',
+          style: 'Hip-Hop',
+          status: 'Full',
+          full: true
+        },
+        {
+          id: '56-tap-thu',
+          name: 'Intro. to Tap',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Thu',
+          weekday: 4,
+          dayGroup: 'Weekdays',
+          time: '4:25-4:55 PM',
+          style: 'Tap',
+          status: '8 spots open',
+          full: false
+        },
+        {
+          id: '56-sampler-sat',
+          name: 'Intro. Dance Sampler',
+          ageGroup: '5-6',
+          agesLabel: 'Ages 5-6',
+          day: 'Sat',
+          weekday: 6,
+          dayGroup: 'Saturday',
+          time: '10:45-11:30 AM',
+          style: 'Sampler',
+          status: '6 spots open',
+          full: false
+        },
+        // Ages 3-4
+        {
+          id: '34-creative-thu',
+          name: 'Creative Movement',
+          ageGroup: '3-4',
+          agesLabel: 'Ages 3-4',
+          day: 'Thu',
+          weekday: 4,
+          dayGroup: 'Weekdays',
+          time: '4:25-4:55 PM',
+          style: 'Sampler',
+          status: '5 spots open',
+          full: false
+        },
+        {
+          id: '34-creative-sat',
+          name: 'Creative Movement',
+          ageGroup: '3-4',
+          agesLabel: 'Ages 3-4',
+          day: 'Sat',
+          weekday: 6,
+          dayGroup: 'Saturday',
+          time: '10:05-10:35 AM',
+          style: 'Sampler',
+          status: '1 spot left',
+          full: false
+        },
+        {
+          id: '34-breakers-wed',
+          name: 'Little Breakers',
+          ageGroup: '3-4',
+          agesLabel: 'Ages 3-4',
+          day: 'Wed',
+          weekday: 3,
+          dayGroup: 'Weekdays',
+          time: '4:00-4:30 PM',
+          style: 'Breaking',
+          status: 'Full',
+          full: true
+        }
+      ];
+
+      const STYLE_FILTERS = ['All', 'Breaking', 'Ballet', 'Tap', 'Hip-Hop', 'Acro', 'Sampler'];
+      const DAY_FILTERS = ['Any', 'Weekdays', 'Saturday'];
+      const ROUTE_TITLES = {
+        home: 'Home · Body Language Studio',
+        trial: 'Free Trial Class · Body Language Studio',
+        classes: 'Find a trial class · Body Language Studio',
+        details: 'Your details · Body Language Studio',
+        confirmed: 'Trial confirmed · Body Language Studio'
+      };
+
+      const appEl = document.getElementById('app');
+      const toastEl = document.getElementById('toast');
+      const familiesNavItem = document.getElementById('families-nav-item');
+      const familiesTrigger = document.getElementById('families-trigger');
+      const navFreeTrial = document.getElementById('nav-free-trial');
+      const mobileToggle = document.getElementById('mobile-menu-toggle');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const mobileFamiliesToggle = document.getElementById('mobile-families-toggle');
+      const mobileFamiliesList = document.getElementById('mobile-families-list');
+
+      let state = loadState();
+      let toastTimer = null;
+
+      function loadState() {
+        try {
+          const raw = sessionStorage.getItem(STORAGE_KEY);
+          if (!raw) return Object.assign({}, DEFAULT_STATE);
+          const parsed = JSON.parse(raw);
+          return Object.assign({}, DEFAULT_STATE, parsed);
+        } catch (err) {
+          return Object.assign({}, DEFAULT_STATE);
+        }
+      }
+
+      function saveState() {
+        try {
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (err) {
+          // Ignore storage errors in restricted contexts
+        }
+      }
+
+      function resetState() {
+        state = Object.assign({}, DEFAULT_STATE);
+        saveState();
+      }
+
+      function esc(str) {
+        return String(str == null ? '' : str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function placeholderHtml(label, extraClass) {
+        return (
+          '<div class="placeholder-box ' + (extraClass || '') + '" aria-label="' + esc(label) + ' placeholder">' +
+            '<svg class="placeholder-cross" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' +
+              '<line x1="0" y1="0" x2="100" y2="100"></line>' +
+              '<line x1="100" y1="0" x2="0" y2="100"></line>' +
+            '</svg>' +
+            '<span class="placeholder-label">' + esc(label) + '</span>' +
+          '</div>'
+        );
+      }
+
+      function showToast(message) {
+        if (!toastEl) return;
+        const route = getRoute();
+        toastEl.classList.toggle('above-sticky', route === 'classes');
+        toastEl.textContent = message || 'Not part of this prototype';
+        toastEl.classList.add('visible');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toastEl.classList.remove('visible');
+        }, 2600);
+      }
+
+      function getRoute() {
+        const raw = (window.location.hash || '#home').replace(/^#/, '').toLowerCase();
+        if (Object.prototype.hasOwnProperty.call(ROUTE_TITLES, raw)) {
+          return raw;
+        }
+        return 'home';
+      }
+
+      function navigate(route) {
+        const target = '#' + route;
+        if (window.location.hash === target) {
+          render();
+        } else {
+          window.location.hash = target;
+        }
+      }
+
+      function getClassById(id) {
+        return CLASSES.find(function (c) { return c.id === id; }) || null;
+      }
+
+      // Compute next 3 class dates after Nov 23, 2026 skipping Dec 20, 2026 - Jan 3, 2027
+      function getTrialDates(targetWeekday) {
+        const results = [];
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        const cursor = new Date(TODAY_YEAR, TODAY_MONTH - 1, TODAY_DAY + 1); // Nov 24, 2026
+        const breakStart = new Date(2026, 11, 20); // Dec 20, 2026
+        const breakEnd = new Date(2027, 0, 3);     // Jan 3, 2027
+
+        while (results.length < 3) {
+          const inBreak = cursor >= breakStart && cursor <= breakEnd;
+          if (!inBreak && cursor.getDay() === targetWeekday) {
+            const label =
+              dayNames[cursor.getDay()] + ' ' +
+              monthNames[cursor.getMonth()] + ' ' +
+              cursor.getDate();
+            const fullLabel = label + ', ' + cursor.getFullYear();
+            results.push({ value: fullLabel, shortLabel: label });
+          }
+          cursor.setDate(cursor.getDate() + 1);
+        }
+        return results;
+      }
+
+      function parseBirthday(inputStr) {
+        const trimmed = (inputStr || '').trim();
+        if (!trimmed) return { valid: false, empty: true, age: null, error: '' };
+        const match = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(trimmed);
+        if (!match) {
+          return { valid: false, empty: false, age: null, error: 'Use MM/DD/YYYY (for example, 05/14/2020).' };
+        }
+        const month = parseInt(match[1], 10);
+        const day = parseInt(match[2], 10);
+        const year = parseInt(match[3], 10);
+
+        if (month < 1 || month > 12 || year < 1900 || year > TODAY_YEAR) {
+          return { valid: false, empty: false, age: null, error: 'Enter a valid birthday before Nov 23, 2026.' };
+        }
+
+        const testDate = new Date(year, month - 1, day);
+        if (testDate.getFullYear() !== year || testDate.getMonth() !== month - 1 || testDate.getDate() !== day) {
+          return { valid: false, empty: false, age: null, error: 'That calendar date does not exist.' };
+        }
+
+        const todayDate = new Date(TODAY_YEAR, TODAY_MONTH - 1, TODAY_DAY);
+        if (testDate > todayDate) {
+          return { valid: false, empty: false, age: null, error: 'Birthday must be on or before Nov 23, 2026.' };
+        }
+
+        let age = TODAY_YEAR - year;
+        if (month > TODAY_MONTH || (month === TODAY_MONTH && day > TODAY_DAY)) {
+          age -= 1;
+        }
+        return { valid: true, empty: false, age: age, error: '' };
+      }
+
+      function getActiveAgeGroup() {
+        if (state.useBirthday && state.birthday.trim() !== '') {
+          if (state.computedAge === null) return 'none';
+          if (state.computedAge === 5 || state.computedAge === 6) return '5-6';
+          if (state.computedAge === 3 || state.computedAge === 4) return '3-4';
+          return 'other';
+        }
+        if (state.ageSelect === '5' || state.ageSelect === '6') return '5-6';
+        if (state.ageSelect === '3' || state.ageSelect === '4') return '3-4';
+        if (state.ageSelect === '7-12' || state.ageSelect === '13+') return 'other';
+        return 'none';
+      }
+
+      function getDerivedAgeSummary() {
+        if (state.useBirthday && state.birthday.trim() && state.computedAge !== null) {
+          return state.birthday.trim() + ' (Age ' + state.computedAge + ')';
+        }
+        if (state.ageSelect) {
+          return 'Age ' + state.ageSelect;
+        }
+        return '';
+      }
+
+      function stepperHtml(currentStep) {
+        const steps = [
+          { num: 1, label: 'Choose a class' },
+          { num: 2, label: 'Your details' },
+          { num: 3, label: 'Confirmed' }
+        ];
+        return (
+          '<ol class="stepper" aria-label="Booking steps">' +
+          steps.map(function (s, idx) {
+            const cls = s.num === currentStep ? 'current' : (s.num < currentStep ? 'done' : '');
+            const aria = s.num === currentStep ? ' aria-current="step"' : '';
+            const numText = s.num < currentStep ? '✓' : String(s.num);
+            const sep = idx < steps.length - 1 ? '<li class="stepper-sep" aria-hidden="true">·</li>' : '';
+            return (
+              '<li class="' + cls + '"' + aria + '>' +
+                '<span class="stepper-num" aria-hidden="true">' + numText + '</span>' +
+                '<span><span class="sr-only">Step ' + s.num + ': </span>' + esc(s.label) + '</span>' +
+              '</li>' + sep
+            );
+          }).join('') +
+          '</ol>'
+        );
+      }
+
+      /* ---------------- Screen 1: Home ---------------- */
+      function renderHome() {
+        return (
+          '<div class="container">' +
+            '<section class="hero">' +
+              '<div class="hero-copy">' +
+                '<h1>Dance classes for ages 3 to adult in Renton</h1>' +
+                '<p>Beginner-friendly classes for every age. Try one class free before registering for the season.</p>' +
+                '<div class="hero-actions">' +
+                  '<button type="button" class="btn btn-primary" id="home-book-trial">Book a free trial class</button>' +
+                  '<button type="button" class="btn btn-outline" data-proto-toast="Not part of this prototype">Find a class</button>' +
+                '</div>' +
+              '</div>' +
+              placeholderHtml('Photo', 'hero-photo') +
+            '</section>' +
+
+            '<section class="section">' +
+              '<h2>New to BLS? Start here</h2>' +
+              '<div class="grid-3">' +
+                '<div class="card">' +
+                  '<div class="step-badge" aria-hidden="true">1</div>' +
+                  '<h3>Try one class free</h3>' +
+                  '<p class="muted">No credit card or full registration form needed to visit.</p>' +
+                '</div>' +
+                '<div class="card">' +
+                  '<div class="step-badge" aria-hidden="true">2</div>' +
+                  '<h3>Pick a day that fits your week</h3>' +
+                  '<p class="muted">See real open spots and choose a trial date online.</p>' +
+                '</div>' +
+                '<div class="card">' +
+                  '<div class="step-badge" aria-hidden="true">3</div>' +
+                  '<h3>Join for the season if it clicks</h3>' +
+                  '<p class="muted">Review full tuition and annual fees before you pay.</p>' +
+                '</div>' +
+              '</div>' +
+              '<p style="margin-top: 16px; margin-bottom: 0;">' +
+                '<a href="#trial" class="text-link">How the free trial works</a>' +
+              '</p>' +
+            '</section>' +
+
+            '<section class="section">' +
+              '<h2>Browse by age</h2>' +
+              '<div class="grid-3">' +
+                '<button type="button" class="age-card" data-proto-toast="Not part of this prototype">' +
+                  placeholderHtml('Photo', 'small-photo') +
+                  '<h3>Ages 3-6</h3>' +
+                  '<p class="muted" style="margin-bottom:0;">Intro. classes &amp; Creative Movement</p>' +
+                '</button>' +
+                '<button type="button" class="age-card" data-proto-toast="Not part of this prototype">' +
+                  placeholderHtml('Photo', 'small-photo') +
+                  '<h3>Ages 7-12</h3>' +
+                  '<p class="muted" style="margin-bottom:0;">Beginner through intermediate levels</p>' +
+                '</button>' +
+                '<button type="button" class="age-card" data-proto-toast="Not part of this prototype">' +
+                  placeholderHtml('Photo', 'small-photo') +
+                  '<h3>Teens &amp; Adults</h3>' +
+                  '<p class="muted" style="margin-bottom:0;">Evening technique and drop-in options</p>' +
+                '</button>' +
+              '</div>' +
+            '</section>' +
+
+            '<section class="section">' +
+              '<h2>What parents say</h2>' +
+              '<div class="card quote-card">' +
+                '<p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>' +
+                '<p class="muted" style="margin-bottom:0;">Parent quote placeholder, Renton</p>' +
+              '</div>' +
+            '</section>' +
+          '</div>'
+        );
+      }
+
+      /* ---------------- Screen 2: Free Trial Class ---------------- */
+      function renderTrial() {
+        return (
+          '<div class="container narrow">' +
+            '<nav class="breadcrumb" aria-label="Breadcrumb">' +
+              '<ol>' +
+                '<li><a href="#home">Home</a></li>' +
+                '<li><button type="button" data-proto-toast="Not part of this prototype">Families</button></li>' +
+                '<li aria-current="page">Free Trial Class</li>' +
+              '</ol>' +
+            '</nav>' +
+
+            '<section class="section">' +
+              '<h1>Try one class free</h1>' +
+              '<div class="grid-3" style="margin-top: 24px;">' +
+                '<div class="term-tile">' +
+                  '<span class="glyph-box" aria-hidden="true">1</span>' +
+                  '<span>1 free class</span>' +
+                '</div>' +
+                '<div class="term-tile">' +
+                  '<span class="glyph-box" aria-hidden="true">⊘</span>' +
+                  '<span>No credit card</span>' +
+                '</div>' +
+                '<div class="term-tile">' +
+                  '<span class="glyph-box" aria-hidden="true">✓</span>' +
+                  '<span>No registration form</span>' +
+                '</div>' +
+              '</div>' +
+            '</section>' +
+
+            '<section class="section card card-surface">' +
+              '<h2>What happens after</h2>' +
+              '<p>If your child loves it, register for the season; tuition and the $90 yearly membership are shown before you pay.</p>' +
+              '<button type="button" class="text-link" data-proto-toast="Not part of this prototype">See Tuition &amp; Fees</button>' +
+            '</section>' +
+
+            '<div class="section" style="margin-top: 24px;">' +
+              '<a href="#classes" class="btn btn-primary">Find a trial class</a>' +
+            '</div>' +
+
+            '<section class="section">' +
+              '<h2>How it works</h2>' +
+              '<div class="grid-3">' +
+                '<div class="card">' +
+                  '<div class="step-badge" aria-hidden="true">1</div>' +
+                  '<h3>Enter your child\'s age</h3>' +
+                '</div>' +
+                '<div class="card">' +
+                  '<div class="step-badge" aria-hidden="true">2</div>' +
+                  '<h3>Pick a class and date</h3>' +
+                '</div>' +
+                '<div class="card">' +
+                  '<div class="step-badge" aria-hidden="true">3</div>' +
+                  '<h3>Get your confirmation on screen</h3>' +
+                '</div>' +
+              '</div>' +
+            '</section>' +
+
+            '<section class="section">' +
+              '<h2>Common questions</h2>' +
+              '<div class="faq-list">' +
+                '<details class="faq-item">' +
+                  '<summary>What should my child wear?</summary>' +
+                  '<p>Comfortable clothes they can move in and clean, closed-toe sneakers.</p>' +
+                '</details>' +
+                '<details class="faq-item">' +
+                  '<summary>Can I stay and watch?</summary>' +
+                  '<p>Yes, parents are welcome to watch from the lobby viewing area.</p>' +
+                '</details>' +
+                '<details class="faq-item">' +
+                  '<summary>What if we need to cancel?</summary>' +
+                  '<p>Call or email the studio before class to cancel or pick a new date with no fee.</p>' +
+                '</details>' +
+              '</div>' +
+            '</section>' +
+          '</div>'
+        );
+      }
+
+      /* ---------------- Screen 3: Find a trial class ---------------- */
+      function renderClasses() {
+        const ageGroup = getActiveAgeGroup();
+        const ageList = CLASSES.filter(function (c) { return c.ageGroup === ageGroup; });
+        const filtered = ageList.filter(function (c) {
+          const matchStyle = state.styleFilter === 'All' || c.style === state.styleFilter;
+          const matchDay = state.dayFilter === 'Any' || c.dayGroup === state.dayFilter;
+          return matchStyle && matchDay;
+        });
+
+        // Clear selection if selected class is no longer visible
+        if (state.selectedClassId && !filtered.some(function (c) { return c.id === state.selectedClassId; })) {
+          state.selectedClassId = null;
+          state.selectedDate = null;
+          saveState();
+        }
+
+        const selectedClass = getClassById(state.selectedClassId);
+        const canContinue = Boolean(selectedClass && state.selectedDate);
+
+        let listHeading = 'Trial classes';
+        if (ageGroup === '5-6') listHeading = 'Trial classes for ages 5-6';
+        if (ageGroup === '3-4') listHeading = 'Trial classes for ages 3-4';
+
+        let listContent = '';
+        if (ageGroup === 'none') {
+          listContent =
+            '<div class="card card-surface">' +
+              '<p style="margin-bottom:0;">Select your child\'s age above (or enter their birthday) to see available trial classes.</p>' +
+            '</div>';
+        } else if (ageGroup === 'other') {
+          listContent =
+            '<div class="card card-surface">' +
+              '<p style="margin-bottom:0;">No trial classes listed for this age in the prototype.</p>' +
+            '</div>';
+        } else if (filtered.length === 0) {
+          listContent =
+            '<div class="card card-surface">' +
+              '<p style="margin-bottom:16px;">No trial classes match your current style and day filters.</p>' +
+              '<button type="button" class="btn btn-outline btn-sm" id="reset-filters-btn">Reset filters</button>' +
+            '</div>';
+        } else {
+          listContent = '<div class="class-list">' + filtered.map(function (cls) {
+            const isSelected = state.selectedClassId === cls.id;
+            const cardCls = 'class-card' + (cls.full ? ' full' : '') + (isSelected ? ' selected' : '');
+
+            let actionHtml = '';
+            if (cls.full) {
+              actionHtml = '<button type="button" class="btn btn-outline btn-sm" data-proto-toast="Not part of this prototype">Join waitlist</button>';
+            } else if (isSelected) {
+              actionHtml = '<button type="button" class="btn btn-outline btn-sm" data-select-class="' + esc(cls.id) + '" aria-pressed="true">Selected</button>';
+            } else {
+              actionHtml = '<button type="button" class="btn btn-outline btn-sm" data-select-class="' + esc(cls.id) + '" aria-pressed="false">Select</button>';
+            }
+
+            let datePanelHtml = '';
+            if (isSelected && !cls.full) {
+              const dates = getTrialDates(cls.weekday);
+              datePanelHtml =
+                '<div class="date-picker-panel">' +
+                  '<h3>Pick your trial date</h3>' +
+                  '<div class="date-options" role="radiogroup" aria-label="Trial dates for ' + esc(cls.name) + '">' +
+                    dates.map(function (d, i) {
+                      const checked = state.selectedDate === d.value;
+                      const radioId = 'date-' + cls.id + '-' + i;
+                      return (
+                        '<label class="date-option' + (checked ? ' checked' : '') + '" for="' + radioId + '">' +
+                          '<input type="radio" name="trial-date" id="' + radioId + '" value="' + esc(d.value) + '"' + (checked ? ' checked' : '') + '>' +
+                          '<span>' + esc(d.shortLabel) + '</span>' +
+                        '</label>'
+                      );
+                    }).join('') +
+                  '</div>' +
+                '</div>';
+            }
+
+            return (
+              '<article class="' + cardCls + '">' +
+                '<div class="class-card-top">' +
+                  '<div>' +
+                    '<h3>' + esc(cls.name) + (isSelected ? '<span class="selected-pill">Selected</span>' : '') + '</h3>' +
+                    '<p class="class-meta">' + esc(cls.agesLabel) + ' · ' + esc(cls.day) + ' ' + esc(cls.time) + '</p>' +
+                    '<p class="class-status">' + esc(cls.status) + '</p>' +
+                  '</div>' +
+                  '<div>' + actionHtml + '</div>' +
+                '</div>' +
+                datePanelHtml +
+              '</article>'
+            );
+          }).join('') + '</div>';
+        }
+
+        let stickySummary = 'Choose a class and date';
+        if (selectedClass && state.selectedDate) {
+          stickySummary = selectedClass.name + ' · ' + state.selectedDate + ' · ' + selectedClass.time;
+        } else if (selectedClass) {
+          stickySummary = selectedClass.name + ' (' + selectedClass.day + ' ' + selectedClass.time + '), pick a date';
+        }
+
+        const ageOptions = [
+          { v: '', t: 'Select age' },
+          { v: '3', t: '3' },
+          { v: '4', t: '4' },
+          { v: '5', t: '5' },
+          { v: '6', t: '6' },
+          { v: '7-12', t: '7-12' },
+          { v: '13+', t: '13+' }
+        ];
+
+        return (
+          '<div class="container">' +
+            stepperHtml(1) +
+            '<h1>Find a trial class</h1>' +
+
+            '<section class="section card">' +
+              '<div class="age-controls">' +
+                '<div class="age-select-wrap">' +
+                  '<label for="age-select" style="display:block; font-weight:600; margin-bottom:6px;">Child\'s age</label>' +
+                  '<select id="age-select" class="select">' +
+                    ageOptions.map(function (o) {
+                      return '<option value="' + esc(o.v) + '"' + (state.ageSelect === o.v ? ' selected' : '') + '>' + esc(o.t) + '</option>';
+                    }).join('') +
+                  '</select>' +
+                '</div>' +
+                '<div style="padding-bottom: 8px;">' +
+                  '<button type="button" class="text-link" id="toggle-birthday" aria-expanded="' + (state.useBirthday ? 'true' : 'false') + '">' +
+                    (state.useBirthday ? 'hide birthday input' : 'or enter birthday') +
+                  '</button>' +
+                '</div>' +
+              '</div>' +
+
+              (state.useBirthday
+                ? '<div class="birthday-wrap">' +
+                    '<label for="dob-input" style="display:block; font-weight:600; margin-bottom:6px;">Child\'s birthday</label>' +
+                    '<input id="dob-input" class="input" type="text" inputmode="numeric" placeholder="MM/DD/YYYY" value="' + esc(state.birthday) + '" autocomplete="off">' +
+                    (state.birthdayError
+                      ? '<p class="field-error">⚠ ' + esc(state.birthdayError) + '</p>'
+                      : (state.computedAge !== null
+                          ? '<p class="field-hint">Age <strong>' + state.computedAge + '</strong></p>'
+                          : '<p class="field-hint">Type it in, for example 05/14/2020.</p>')) +
+                  '</div>'
+                : '') +
+
+              '<div class="filter-group">' +
+                '<span class="filter-label">Style</span>' +
+                '<div class="chip-row" role="group" aria-label="Filter by style">' +
+                  STYLE_FILTERS.map(function (st) {
+                    const active = state.styleFilter === st;
+                    return '<button type="button" class="chip" data-style-filter="' + esc(st) + '" aria-pressed="' + (active ? 'true' : 'false') + '">' + esc(st) + '</button>';
+                  }).join('') +
+                '</div>' +
+              '</div>' +
+
+              '<div class="filter-group">' +
+                '<span class="filter-label">Day</span>' +
+                '<div class="chip-row" role="group" aria-label="Filter by day">' +
+                  DAY_FILTERS.map(function (dy) {
+                    const active = state.dayFilter === dy;
+                    return '<button type="button" class="chip" data-day-filter="' + esc(dy) + '" aria-pressed="' + (active ? 'true' : 'false') + '">' + esc(dy) + '</button>';
+                  }).join('') +
+                '</div>' +
+              '</div>' +
+            '</section>' +
+
+            '<section class="section">' +
+              '<h2>' + esc(listHeading) + '</h2>' +
+              listContent +
+            '</section>' +
+          '</div>' +
+
+          '<div class="sticky-bar">' +
+            '<div class="container sticky-bar-inner">' +
+              '<p class="sticky-summary">' + esc(stickySummary) + '</p>' +
+              '<button type="button" class="btn btn-primary" id="continue-to-details"' + (canContinue ? '' : ' disabled') + '>Continue</button>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+
+      /* ---------------- Screen 4: Your details ---------------- */
+      function renderDetails() {
+        const selectedClass = getClassById(state.selectedClassId);
+        if (!selectedClass || !state.selectedDate) {
+          return (
+            '<div class="container narrow">' +
+              stepperHtml(2) +
+              '<h1>Your details</h1>' +
+              '<section class="card card-surface">' +
+                '<h2>No class selected yet</h2>' +
+                '<p>Please choose a trial class and date first.</p>' +
+                '<a href="#classes" class="btn btn-primary">Find a trial class</a>' +
+              '</section>' +
+            '</div>'
+          );
+        }
+
+        const prefilledAge = state.childAgeText || getDerivedAgeSummary();
+
+        return (
+          '<div class="container narrow">' +
+            stepperHtml(2) +
+            '<h1>Your details</h1>' +
+
+            '<section class="section card card-surface">' +
+              '<div class="summary-header">' +
+                '<h2>Selected trial class</h2>' +
+                '<a href="#classes" class="text-link">Change</a>' +
+              '</div>' +
+              '<dl class="detail-list">' +
+                '<div><dt>Class</dt><dd>' + esc(selectedClass.name) + ' (' + esc(selectedClass.agesLabel) + ')</dd></div>' +
+                '<div><dt>Date</dt><dd>' + esc(state.selectedDate) + '</dd></div>' +
+                '<div><dt>Time</dt><dd>' + esc(selectedClass.day) + ' ' + esc(selectedClass.time) + '</dd></div>' +
+                '<div><dt>Studio address</dt><dd>' + esc(STUDIO_ADDRESS) + '</dd></div>' +
+              '</dl>' +
+            '</section>' +
+
+            '<section class="section card">' +
+              '<h2>Parent &amp; dancer details</h2>' +
+              '<form id="details-form" novalidate>' +
+                '<div class="field">' +
+                  '<label for="parent-name">Parent or guardian name</label>' +
+                  '<input id="parent-name" name="parentName" class="input" type="text" placeholder="e.g. Jessica Tran" value="' + esc(state.parentName) + '" autocomplete="name" required>' +
+                  '<p class="field-error" id="err-parent-name" hidden></p>' +
+                '</div>' +
+
+                '<div class="field">' +
+                  '<label for="parent-email">Email</label>' +
+                  '<input id="parent-email" name="email" class="input" type="email" placeholder="name@example.com" value="' + esc(state.email) + '" autocomplete="email" required>' +
+                  '<p class="field-error" id="err-parent-email" hidden></p>' +
+                '</div>' +
+
+                '<div class="field">' +
+                  '<label for="parent-phone">Phone, optional</label>' +
+                  '<input id="parent-phone" name="phone" class="input" type="tel" placeholder="(425) 555-0123" value="' + esc(state.phone) + '" autocomplete="tel">' +
+                '</div>' +
+
+                '<div class="field">' +
+                  '<label for="child-name">Child\'s first name</label>' +
+                  '<input id="child-name" name="childName" class="input" type="text" placeholder="e.g. Mia" value="' + esc(state.childName) + '" required>' +
+                  '<p class="field-error" id="err-child-name" hidden></p>' +
+                '</div>' +
+
+                '<div class="field">' +
+                  '<label for="child-age-text">Child\'s age or birthday</label>' +
+                  '<input id="child-age-text" name="childAgeText" class="input" type="text" placeholder="e.g. 6 or MM/DD/YYYY" value="' + esc(prefilledAge) + '">' +
+                '</div>' +
+
+                '<div class="checkbox-row">' +
+                  '<input id="sms-reminder" name="smsReminder" type="checkbox"' + (state.smsReminder ? ' checked' : '') + '>' +
+                  '<label for="sms-reminder">Text me a reminder the day before</label>' +
+                '</div>' +
+
+                '<div class="no-card-note">' +
+                  '<span aria-hidden="true">⊘</span>' +
+                  '<span>No credit card. No account needed.</span>' +
+                '</div>' +
+
+                '<div class="form-actions">' +
+                  '<button type="submit" class="btn btn-primary">Book free trial</button>' +
+                  '<a href="#classes" class="text-link">Back</a>' +
+                '</div>' +
+              '</form>' +
+            '</section>' +
+          '</div>'
+        );
+      }
+
+      /* ---------------- Screen 5: Trial confirmed ---------------- */
+      function renderConfirmed() {
+        const selectedClass = getClassById(state.selectedClassId);
+        const childTrimmed = (state.childName || '').trim();
+        const heading = childTrimmed ? (childTrimmed + "'s free trial is booked") : 'Your free trial is booked';
+        const emailText = (state.email || '').trim();
+
+        const classLabel = selectedClass ? (selectedClass.name + ' (' + selectedClass.agesLabel + ')') : 'Intro. to Breaking (Ages 5-6)';
+        const dateLabel = state.selectedDate || 'Mon Nov 30, 2026';
+        const timeLabel = selectedClass ? (selectedClass.day + ' ' + selectedClass.time) : 'Mon 4:00-4:45 PM';
+
+        return (
+          '<div class="container narrow">' +
+            stepperHtml(3) +
+            '<h1>' + esc(heading) + '</h1>' +
+
+            '<section class="section card">' +
+              '<div class="confirm-grid">' +
+                '<div>' +
+                  '<h2>Trial class details</h2>' +
+                  '<dl class="detail-list" style="grid-template-columns: 1fr;">' +
+                    '<div><dt>Class</dt><dd>' + esc(classLabel) + '</dd></div>' +
+                    '<div><dt>Day &amp; date</dt><dd>' + esc(dateLabel) + '</dd></div>' +
+                    '<div><dt>Time</dt><dd>' + esc(timeLabel) + '</dd></div>' +
+                    '<div><dt>Studio address</dt><dd>Body Language Studio, ' + esc(STUDIO_ADDRESS) + '</dd></div>' +
+                  '</dl>' +
+                '</div>' +
+                placeholderHtml('Map', 'map-photo') +
+              '</div>' +
+
+              '<p style="margin-top: 24px; margin-bottom: 16px;">' +
+                (emailText ? 'We sent a copy to <strong>' + esc(emailText) + '</strong>.' : 'We sent a copy to your email.') +
+              '</p>' +
+
+              '<div class="hero-actions">' +
+                '<button type="button" class="btn btn-primary" data-proto-toast="Calendar file downloaded (prototype)">Add to calendar</button>' +
+                '<a href="#home" class="btn btn-outline">Back to home</a>' +
+              '</div>' +
+            '</section>' +
+
+            '<section class="section card card-surface">' +
+              '<h2>Before you come</h2>' +
+              '<ul class="check-list">' +
+                '<li>Wear comfy clothes and clean sneakers.</li>' +
+                '<li>Arrive 10 minutes early to check in at the front desk.</li>' +
+                '<li>Parents can watch from the lobby.</li>' +
+              '</ul>' +
+            '</section>' +
+
+            '<section class="section card">' +
+              '<h2>After the trial</h2>' +
+              '<p>If it clicks, you can review monthly tuition and the $90 yearly membership before registering. Nothing is charged automatically.</p>' +
+              '<button type="button" class="btn btn-outline" data-proto-toast="Not part of this prototype">See Tuition &amp; Fees</button>' +
+            '</section>' +
+          '</div>'
+        );
+      }
+
+      /* ---------------- Event Binding per Route ---------------- */
+      function bindRouteEvents(route) {
+        if (route === 'home') {
+          const bookBtn = document.getElementById('home-book-trial');
+          if (bookBtn) {
+            bookBtn.addEventListener('click', function () {
+              resetState();
+              navigate('trial');
+            });
+          }
+        }
+
+        if (route === 'classes') {
+          const ageSelect = document.getElementById('age-select');
+          if (ageSelect) {
+            ageSelect.addEventListener('change', function () {
+              state.ageSelect = ageSelect.value;
+              state.birthday = '';
+              state.computedAge = null;
+              state.birthdayError = '';
+              state.childAgeText = '';
+              saveState();
+              render({ preserveScroll: true });
+            });
+          }
+
+          const toggleDob = document.getElementById('toggle-birthday');
+          if (toggleDob) {
+            toggleDob.addEventListener('click', function () {
+              state.useBirthday = !state.useBirthday;
+              if (!state.useBirthday) {
+                state.birthday = '';
+                state.computedAge = null;
+                state.birthdayError = '';
+              }
+              saveState();
+              render({ preserveScroll: true, focusId: state.useBirthday ? 'dob-input' : 'toggle-birthday' });
+            });
+          }
+
+          const dobInput = document.getElementById('dob-input');
+          if (dobInput) {
+            dobInput.addEventListener('input', function () {
+              state.birthday = dobInput.value;
+              const parsed = parseBirthday(state.birthday);
+              if (parsed.valid) {
+                state.computedAge = parsed.age;
+                state.birthdayError = '';
+                state.childAgeText = '';
+                saveState();
+                render({ preserveScroll: true, focusId: 'dob-input', cursorPos: dobInput.selectionStart });
+              } else {
+                const prevAge = state.computedAge;
+                state.computedAge = null;
+                // Errors show on blur only, so typing is never interrupted
+                state.birthdayError = '';
+                saveState();
+                if (prevAge !== null) {
+                  render({ preserveScroll: true, focusId: 'dob-input', cursorPos: dobInput.selectionStart });
+                }
+              }
+            });
+
+            dobInput.addEventListener('blur', function () {
+              if (isRendering) return;
+              const parsed = parseBirthday(dobInput.value);
+              if (!parsed.empty && !parsed.valid) {
+                state.birthdayError = parsed.error;
+                state.computedAge = null;
+                saveState();
+                render({ preserveScroll: true });
+              }
+            });
+          }
+
+          appEl.querySelectorAll('[data-style-filter]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              state.styleFilter = btn.getAttribute('data-style-filter');
+              saveState();
+              render({ preserveScroll: true });
+            });
+          });
+
+          appEl.querySelectorAll('[data-day-filter]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              state.dayFilter = btn.getAttribute('data-day-filter');
+              saveState();
+              render({ preserveScroll: true });
+            });
+          });
+
+          const resetFiltersBtn = document.getElementById('reset-filters-btn');
+          if (resetFiltersBtn) {
+            resetFiltersBtn.addEventListener('click', function () {
+              state.styleFilter = 'All';
+              state.dayFilter = 'Any';
+              saveState();
+              render({ preserveScroll: true });
+            });
+          }
+
+          appEl.querySelectorAll('[data-select-class]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              const id = btn.getAttribute('data-select-class');
+              if (state.selectedClassId !== id) {
+                state.selectedClassId = id;
+                state.selectedDate = null;
+                saveState();
+                render({ preserveScroll: true });
+              }
+            });
+          });
+
+          appEl.querySelectorAll('input[name="trial-date"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+              state.selectedDate = radio.value;
+              saveState();
+              render({ preserveScroll: true });
+            });
+          });
+
+          const continueBtn = document.getElementById('continue-to-details');
+          if (continueBtn) {
+            continueBtn.addEventListener('click', function () {
+              if (!state.selectedClassId || !state.selectedDate) return;
+              if (!state.childAgeText) {
+                state.childAgeText = getDerivedAgeSummary();
+                saveState();
+              }
+              navigate('details');
+            });
+          }
+        }
+
+        if (route === 'details') {
+          const form = document.getElementById('details-form');
+          if (!form) return;
+
+          const parentNameInput = document.getElementById('parent-name');
+          const emailInput = document.getElementById('parent-email');
+          const phoneInput = document.getElementById('parent-phone');
+          const childNameInput = document.getElementById('child-name');
+          const childAgeInput = document.getElementById('child-age-text');
+          const smsInput = document.getElementById('sms-reminder');
+
+          function setFieldError(inputEl, errId, msg) {
+            const errEl = document.getElementById(errId);
+            if (!errEl || !inputEl) return;
+            if (msg) {
+              errEl.textContent = '⚠ ' + msg;
+              errEl.hidden = false;
+              inputEl.setAttribute('aria-invalid', 'true');
+              inputEl.setAttribute('aria-describedby', errId);
+            } else {
+              errEl.textContent = '';
+              errEl.hidden = true;
+              inputEl.removeAttribute('aria-invalid');
+              inputEl.removeAttribute('aria-describedby');
+            }
+          }
+
+          function syncFields() {
+            state.parentName = parentNameInput.value;
+            state.email = emailInput.value;
+            state.phone = phoneInput.value;
+            state.childName = childNameInput.value;
+            state.childAgeText = childAgeInput.value;
+            state.smsReminder = smsInput.checked;
+            saveState();
+          }
+
+          parentNameInput.addEventListener('input', function () {
+            syncFields();
+            if (parentNameInput.value.trim()) setFieldError(parentNameInput, 'err-parent-name', '');
+          });
+
+          emailInput.addEventListener('input', function () {
+            syncFields();
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailInput.value.trim())) {
+              setFieldError(emailInput, 'err-parent-email', '');
+            }
+          });
+
+          phoneInput.addEventListener('input', syncFields);
+
+          childNameInput.addEventListener('input', function () {
+            syncFields();
+            if (childNameInput.value.trim()) setFieldError(childNameInput, 'err-child-name', '');
+          });
+
+          childAgeInput.addEventListener('input', syncFields);
+          smsInput.addEventListener('change', syncFields);
+
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            syncFields();
+
+            let firstInvalid = null;
+            const pName = parentNameInput.value.trim();
+            const emailVal = emailInput.value.trim();
+            const cName = childNameInput.value.trim();
+
+            if (!pName) {
+              setFieldError(parentNameInput, 'err-parent-name', 'Please enter parent or guardian name.');
+              firstInvalid = firstInvalid || parentNameInput;
+            } else {
+              setFieldError(parentNameInput, 'err-parent-name', '');
+            }
+
+            if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailVal)) {
+              setFieldError(emailInput, 'err-parent-email', 'Please enter a valid email address.');
+              firstInvalid = firstInvalid || emailInput;
+            } else {
+              setFieldError(emailInput, 'err-parent-email', '');
+            }
+
+            if (!cName) {
+              setFieldError(childNameInput, 'err-child-name', "Please enter your child's first name.");
+              firstInvalid = firstInvalid || childNameInput;
+            } else {
+              setFieldError(childNameInput, 'err-child-name', '');
+            }
+
+            if (firstInvalid) {
+              firstInvalid.focus();
+              return;
+            }
+
+            state.booked = true;
+            saveState();
+            navigate('confirmed');
+          });
+        }
+      }
+
+      /* ---------------- Render Pipeline ---------------- */
+      function closeMenus() {
+        familiesNavItem.classList.remove('open');
+        familiesTrigger.setAttribute('aria-expanded', 'false');
+        mobileDrawer.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      let isRendering = false;
+      function render(options) {
+        const opts = options || {};
+        isRendering = true;
+        const route = getRoute();
+
+        document.title = ROUTE_TITLES[route] || ROUTE_TITLES.home;
+        appEl.classList.toggle('has-sticky-bar', route === 'classes');
+
+        if (navFreeTrial) {
+          if (route === 'trial') {
+            navFreeTrial.setAttribute('aria-current', 'page');
+          } else {
+            navFreeTrial.removeAttribute('aria-current');
+          }
+        }
+
+        let html = '';
+        if (route === 'home') html = renderHome();
+        else if (route === 'trial') html = renderTrial();
+        else if (route === 'classes') html = renderClasses();
+        else if (route === 'details') html = renderDetails();
+        else if (route === 'confirmed') html = renderConfirmed();
+
+        appEl.innerHTML = html;
+        bindRouteEvents(route);
+        isRendering = false;
+
+        if (!opts.preserveScroll) {
+          closeMenus();
+          window.scrollTo(0, 0);
+        }
+
+        if (opts.focusId) {
+          const el = document.getElementById(opts.focusId);
+          if (el) {
+            el.focus();
+            if (typeof opts.cursorPos === 'number' && typeof el.setSelectionRange === 'function') {
+              try {
+                el.setSelectionRange(opts.cursorPos, opts.cursorPos);
+              } catch (err) {
+                // Ignore
+              }
+            }
+          }
+        }
+      }
+
+      /* ---------------- Global Controls ---------------- */
+      familiesTrigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpen = familiesNavItem.classList.toggle('open');
+        familiesTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileToggle.addEventListener('click', function () {
+        const isOpen = mobileDrawer.classList.toggle('open');
+        mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileFamiliesToggle.addEventListener('click', function () {
+        const expanded = mobileFamiliesToggle.getAttribute('aria-expanded') === 'true';
+        mobileFamiliesToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        mobileFamiliesList.hidden = expanded;
+      });
+
+      document.addEventListener('click', function (e) {
+        const toastTrigger = e.target.closest('[data-proto-toast]');
+        if (toastTrigger) {
+          e.preventDefault();
+          showToast(toastTrigger.getAttribute('data-proto-toast'));
+          closeMenus();
+          return;
+        }
+
+        if (!familiesNavItem.contains(e.target)) {
+          familiesNavItem.classList.remove('open');
+          familiesTrigger.setAttribute('aria-expanded', 'false');
+        }
+
+        if (e.target.closest('#mobile-drawer a')) {
+          closeMenus();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          closeMenus();
+        }
+      });
+
+      // Facilitator shortcut between testers: Shift+R clears all choices and returns Home
+      document.addEventListener('keydown', function (e) {
+        const t = e.target;
+        const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT');
+        if (!typing && e.shiftKey && (e.key === 'R' || e.key === 'r')) {
+          try { sessionStorage.clear(); } catch (err) {}
+          location.assign(location.pathname + '?t=' + Date.now() + '#home');
+        }
+      });
+
+      window.addEventListener('hashchange', function () {
+        render();
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
