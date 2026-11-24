@@ -14,6 +14,33 @@
   const PAGE_NAMES = { home: 'Home', trial: 'Free Trial', classes: 'Find class', details: 'Details', confirmed: 'Confirmed' };
   const SCENARIO = 'You are a parent in Renton. Your daughter is 6 and has never taken a dance class. You want her to try one breaking class on a weekday afternoon, around 4 PM, before you pay for a season. Use this studio\'s website to book that trial.';
 
+  const ICON = {
+    person: '<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0"/>',
+    child: '<path d="M12 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5 4 5-2 5 2M12 11v5m-3 5 3-5 3 5"/>',
+    dance: '<path d="M14 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-6 4 4-2 3 3 4-1M12 7l-1 7 4 3 1 5M11 14l-4 4-3-1"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    card: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M4 20 20 4"/>',
+    eye: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+    talk: '<path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 10h8M8 13h5"/>',
+    link: '<path d="M9 15 15 9M8 12l-2 2a3 3 0 0 0 4 4l2-2m4-4 2-2a3 3 0 0 0-4-4l-2 2"/><path d="M3 3l18 18"/>',
+    flag: '<path d="M5 21V4h11l-2 4 2 4H5"/>',
+    pin: '<path d="M12 21s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/>'
+  };
+  const icon = (name, size) => '<svg class="tk-ico" width="' + (size || 22) + '" height="' + (size || 22) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICON[name] + '</svg>';
+  const FACTS = [
+    { icon: 'person', k: 'You are', v: 'A parent in Renton', short: 'Parent in Renton' },
+    { icon: 'child', k: 'Your child', v: 'Daughter, 6, has never taken a dance class', short: 'Daughter, 6, new to dance' },
+    { icon: 'dance', k: 'You want', v: 'One breaking class for her to try', short: '1 breaking class to try' },
+    { icon: 'clock', k: 'When', v: 'A weekday afternoon, around 4 PM', short: 'Weekday, ~4 PM' },
+    { icon: 'card', k: 'Not yet', v: 'Don\'t pay for a whole season', short: 'No season payment yet' }
+  ];
+  const RULES = [
+    { icon: 'eye', k: 'We test the site, not you', v: 'There are no wrong answers.' },
+    { icon: 'talk', k: 'Think out loud', v: 'Say what you look for and what you expect.' },
+    { icon: 'link', k: 'Some links aren\'t built', v: 'A small note says so. Try another way.' },
+    { icon: 'flag', k: 'Say when you\'re done', v: 'Press I\'m done in the black bar at the top.' }
+  ];
+
   const params = new URLSearchParams(location.search);
   let enabled = params.has('test') || sessionStorage.getItem(ON_KEY) === '1';
 
@@ -85,10 +112,37 @@
 .tk-table tr.tk-row{cursor:pointer}
 .tk-table tr.tk-row:hover td{background:#f3f3f3}
 .tk-timeline{font-size:13px;font-family:ui-monospace,Menlo,monospace;background:#f5f5f5;border-radius:8px;padding:10px 12px;max-height:260px;overflow:auto;white-space:pre-wrap}
-.tk-note{pointer-events:auto;position:fixed;left:16px;bottom:70px;background:#111;color:#fff;border-radius:12px;padding:10px;display:flex;gap:6px;width:min(460px,calc(100vw - 32px))}
+.tk-note{pointer-events:auto;position:fixed;right:16px;top:calc(var(--tk-h,52px) + 10px);background:#111;color:#fff;border-radius:12px;padding:10px;display:flex;gap:6px;width:min(460px,calc(100vw - 32px))}
 .tk-note input{flex:1;font:inherit;border:0;border-radius:6px;padding:7px 9px}
 .tk-note button{font:inherit;border:0;border-radius:6px;padding:7px 12px;background:#fff;color:#111;font-weight:600;cursor:pointer}
 .tk-small{font-size:13px;color:#555}
+.tk-ico{flex:none}
+.tk-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#555;margin:0 0 6px}
+.tk-lead{font-size:20px;line-height:1.35;font-weight:600;margin:0 0 16px;letter-spacing:-.01em}
+.tk-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:0 0 22px}
+.tk-fact{border:2px solid #111;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.tk-fact .tk-k{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#555}
+.tk-fact .tk-v{font-size:16px;font-weight:600;line-height:1.3}
+.tk-rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.tk-rule{background:#f3f3f3;border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start}
+.tk-rule b{display:block;font-size:15px}
+.tk-rule span{font-size:14px;color:#444}
+.tk-strip{pointer-events:auto;position:fixed;top:0;left:0;right:0;background:#111;color:#fff;z-index:2147483001;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.tk-strip-row{display:flex;align-items:center;gap:12px;padding:8px 14px;flex-wrap:wrap}
+.tk-strip .tk-status{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.04em;white-space:nowrap}
+.tk-strip .tk-time{font-variant-numeric:tabular-nums}
+.tk-strip .tk-goal{display:flex;align-items:center;gap:6px;flex:1;min-width:240px;flex-wrap:wrap}
+.tk-strip .tk-goal-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin-right:2px}
+.tk-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #666;border-radius:999px;padding:4px 10px 4px 8px;font-size:13px;font-weight:600;white-space:nowrap}
+.tk-strip .tk-ctrls{display:flex;gap:6px;margin-left:auto}
+.tk-strip button{font:inherit;font-size:13px;border:0;border-radius:999px;padding:7px 13px;cursor:pointer;background:#333;color:#fff;white-space:nowrap}
+.tk-strip button.tk-primary{background:#fff;color:#111;font-weight:700}
+.tk-strip-more{border-top:1px solid #333;padding:10px 14px 12px;font-size:15px;line-height:1.45;display:none}
+.tk-strip.tk-open .tk-strip-more{display:block}
+.tk-strip-more p{margin:0 0 6px;max-width:900px}
+html.tk-running body{padding-top:var(--tk-h,52px)}
+html.tk-running .site-header{top:var(--tk-h,52px)}
+@media (max-width:640px){.tk-strip .tk-goal-label{display:none}.tk-chip{font-size:12px}}
 `;
     const st = document.createElement('style'); st.id = 'tk-style'; st.textContent = css; document.head.appendChild(st);
   }
@@ -103,7 +157,12 @@
     document.body.appendChild(root);
     return root;
   }
-  function clearUI() { if (root) root.innerHTML = ''; }
+  let stripObserver = null;
+  function clearUI() {
+    if (root) root.innerHTML = '';
+    document.documentElement.classList.remove('tk-running');
+    if (stripObserver) { stripObserver.disconnect(); stripObserver = null; }
+  }
 
   function renderIdleBar() {
     ensureRoot(); clearUI();
@@ -121,12 +180,31 @@
 
   function renderRunBar() {
     ensureRoot(); clearUI();
-    root.innerHTML = '<div class="tk-bar" role="toolbar" aria-label="Task in progress">' +
-      '<span class="tk-label">' + (rec ? '<span class="tk-dot" aria-hidden="true"></span>REC' : 'TASK') + '</span>' +
-      '<span class="tk-time" id="tk-time">00:00</span>' +
-      '<button type="button" class="tk-primary" data-a="done">I\'m done</button>' +
-      '<button type="button" data-a="giveup">Give up</button>' +
-      '<button type="button" data-a="note" aria-label="Add facilitator note (Shift+N)">Note</button></div>';
+    root.innerHTML = '<div class="tk-strip" role="region" aria-label="Your task">' +
+      '<div class="tk-strip-row">' +
+        '<div class="tk-status">' + (rec ? '<span class="tk-dot" aria-hidden="true"></span>REC' : 'TASK') + ' <span class="tk-time" id="tk-time">00:00</span></div>' +
+        '<div class="tk-goal"><span class="tk-goal-label">Your task</span>' +
+          FACTS.slice(1).map(f => '<span class="tk-chip">' + icon(f.icon, 16) + esc(f.short) + '</span>').join('') +
+        '</div>' +
+        '<div class="tk-ctrls">' +
+          '<button type="button" data-a="more" aria-expanded="false">Full task</button>' +
+          '<button type="button" data-a="note" aria-label="Add facilitator note (Shift+N)">Note</button>' +
+          '<button type="button" class="tk-primary" data-a="done">I\'m done</button>' +
+          '<button type="button" data-a="giveup">Give up</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="tk-strip-more" id="tk-more"><p>' + esc(SCENARIO) + '</p></div>' +
+    '</div>';
+    const strip = root.querySelector('.tk-strip');
+    const setH = () => document.documentElement.style.setProperty('--tk-h', strip.offsetHeight + 'px');
+    document.documentElement.classList.add('tk-running');
+    setH();
+    if (window.ResizeObserver) { stripObserver = new ResizeObserver(setH); stripObserver.observe(strip); }
+    root.querySelector('[data-a=more]').onclick = e => {
+      const open = strip.classList.toggle('tk-open');
+      e.currentTarget.setAttribute('aria-expanded', open ? 'true' : 'false');
+      e.currentTarget.textContent = open ? 'Hide task' : 'Full task';
+    };
     root.querySelector('[data-a=done]').onclick = () => finishTask(run && run.reached ? 'claimed-done' : 'claimed-done-not-reached');
     root.querySelector('[data-a=giveup]').onclick = () => finishTask('gave-up');
     root.querySelector('[data-a=note]').onclick = openNote;
@@ -172,14 +250,14 @@
 
   function renderBriefing(tester, wantRec) {
     const card = modal(
-      '<h2>Thanks for helping</h2>' +
-      '<p class="tk-sub">We are testing the website, not you. There are no wrong answers.</p>' +
-      '<ul><li>Please think out loud: say what you look for and what you expect.</li>' +
-      '<li>Some links are not built yet. A small note will tell you.</li>' +
-      '<li>Press <b>I\'m done</b> at the bottom left when you think you have finished.</li></ul>' +
-      '<h3>Your task</h3><div class="tk-task">' + esc(SCENARIO) + '</div>' +
+      '<p class="tk-eyebrow">Your task</p>' +
+      '<p class="tk-lead">Book your daughter one breaking class to try, on a weekday afternoon, before you pay for a season.</p>' +
+      '<div class="tk-facts">' + FACTS.map(f => '<div class="tk-fact">' + icon(f.icon) + '<span class="tk-k">' + esc(f.k) + '</span><span class="tk-v">' + esc(f.v) + '</span></div>').join('') + '</div>' +
+      '<p class="tk-eyebrow">How this works</p>' +
+      '<div class="tk-rules">' + RULES.map(r => '<div class="tk-rule">' + icon(r.icon) + '<div><b>' + esc(r.k) + '</b><span>' + esc(r.v) + '</span></div></div>').join('') + '</div>' +
+      '<p class="tk-small" style="margin-top:14px">' + icon('pin', 16) + ' Your task stays pinned at the top of the screen the whole time.</p>' +
       '<div class="tk-actions"><button type="button" class="tk-btn tk-primary" id="tk-start">Start task</button></div>' +
-      '<p class="tk-small" id="tk-recmsg"></p>');
+      '<p class="tk-small" id="tk-recmsg"></p>', true);
     card.querySelector('#tk-start').onclick = async () => {
       const btn = card.querySelector('#tk-start');
       btn.disabled = true;
