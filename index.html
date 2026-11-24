@@ -2476,10 +2476,19 @@
         const t = e.target;
         const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT');
         if (!typing && e.shiftKey && (e.key === 'R' || e.key === 'r')) {
-          try { sessionStorage.clear(); } catch (err) {}
-          location.assign(location.pathname + '?t=' + Date.now() + '#home');
+          window.__proto.reset();
         }
       });
+
+      window.__proto = {
+        reset: function () {
+          resetState();
+          try { sessionStorage.removeItem(STORAGE_KEY); } catch (err) {}
+          if (location.hash !== '#home') { location.hash = '#home'; } else { render(); }
+        },
+        getState: function () { return JSON.parse(JSON.stringify(state)); },
+        getClass: function (id) { return CLASSES.find(function (c) { return c.id === id; }) || null; }
+      };
 
       window.addEventListener('hashchange', function () {
         render();
@@ -2488,5 +2497,6 @@
       render();
     })();
   </script>
+  <script src="test-kit.js"></script>
 </body>
 </html>
