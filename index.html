@@ -437,6 +437,21 @@
       background: var(--surface);
     }
 
+    /* v2: "Start here" steps read as information, not as clickable cards (test: Chun clicked one) */
+    .step-plain {
+      padding: 0;
+    }
+    .step-plain h3 { margin-top: 8px; }
+
+    /* v2: age buttons and the open-times hint (test: Tester E, Tester F, Aurora, Chun) */
+    .age-chip-row .chip { min-width: 52px; font-weight: 600; }
+    .age-hint {
+      margin: var(--space-2) 0 0;
+      font-weight: 600;
+    }
+    #results { scroll-margin-top: 88px; }
+    .slot-time { font-size: 1.25rem; }
+
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1680,17 +1695,17 @@
             '<section class="section">' +
               '<h2>New to BLS? Start here</h2>' +
               '<div class="grid-3">' +
-                '<div class="card">' +
+                '<div class="step-plain">' +
                   '<div class="step-badge" aria-hidden="true">1</div>' +
                   '<h3>Try one class free</h3>' +
                   '<p class="muted">No credit card or full registration form needed to visit.</p>' +
                 '</div>' +
-                '<div class="card">' +
+                '<div class="step-plain">' +
                   '<div class="step-badge" aria-hidden="true">2</div>' +
                   '<h3>Pick a day that fits your week</h3>' +
                   '<p class="muted">See real open spots and choose a trial date online.</p>' +
                 '</div>' +
-                '<div class="card">' +
+                '<div class="step-plain">' +
                   '<div class="step-badge" aria-hidden="true">3</div>' +
                   '<h3>Join for the season if it clicks</h3>' +
                   '<p class="muted">Review full tuition and annual fees before you pay.</p>' +
@@ -1832,15 +1847,15 @@
         const selectedClass = getClassById(state.selectedClassId);
         const canContinue = Boolean(selectedClass && state.selectedDate);
 
-        let listHeading = 'Trial classes';
-        if (ageGroup === '5-6') listHeading = 'Trial classes for ages 5-6';
-        if (ageGroup === '3-4') listHeading = 'Trial classes for ages 3-4';
+        let listHeading = 'Open trial times';
+        if (ageGroup === '5-6') listHeading = 'Open trial times for ages 5-6';
+        if (ageGroup === '3-4') listHeading = 'Open trial times for ages 3-4';
 
         let listContent = '';
         if (ageGroup === 'none') {
           listContent =
             '<div class="card card-surface">' +
-              '<p style="margin-bottom:0;">Select your child\'s age above (or enter their birthday) to see available trial classes.</p>' +
+              '<p style="margin-bottom:0;">Pick your child\'s age above to see the open trial times.</p>' +
             '</div>';
         } else if (ageGroup === 'other') {
           listContent =
@@ -1864,7 +1879,7 @@
             } else if (isSelected) {
               actionHtml = '<button type="button" class="btn btn-outline btn-sm" data-select-class="' + esc(cls.id) + '" aria-pressed="true">Selected</button>';
             } else {
-              actionHtml = '<button type="button" class="btn btn-outline btn-sm" data-select-class="' + esc(cls.id) + '" aria-pressed="false">Select</button>';
+              actionHtml = '<button type="button" class="btn btn-outline btn-sm" data-select-class="' + esc(cls.id) + '" aria-pressed="false">Pick this time</button>';
             }
 
             let datePanelHtml = '';
@@ -1892,8 +1907,8 @@
               '<article class="' + cardCls + '">' +
                 '<div class="class-card-top">' +
                   '<div>' +
-                    '<h3>' + esc(cls.name) + (isSelected ? '<span class="selected-pill">Selected</span>' : '') + '</h3>' +
-                    '<p class="class-meta">' + esc(cls.agesLabel) + ' · ' + esc(cls.day) + ' ' + esc(cls.time) + '</p>' +
+                    '<h3 class="slot-time">' + esc(cls.day) + ' ' + esc(cls.time) + (isSelected ? '<span class="selected-pill">Selected</span>' : '') + '</h3>' +
+                    '<p class="class-meta">' + esc(cls.name) + ' · ' + esc(cls.agesLabel) + '</p>' +
                     '<p class="class-status">' + esc(cls.status) + '</p>' +
                   '</div>' +
                   '<div>' + actionHtml + '</div>' +
@@ -1928,13 +1943,14 @@
 
             '<section class="section card">' +
               '<div class="age-controls">' +
-                '<div class="age-select-wrap">' +
-                  '<label for="age-select" style="display:block; font-weight:600; margin-bottom:6px;">Child\'s age</label>' +
-                  '<select id="age-select" class="select">' +
-                    ageOptions.map(function (o) {
-                      return '<option value="' + esc(o.v) + '"' + (state.ageSelect === o.v ? ' selected' : '') + '>' + esc(o.t) + '</option>';
+                '<div>' +
+                  '<span class="filter-label" id="age-label">Child\'s age</span>' +
+                  '<div class="chip-row age-chip-row" role="group" aria-labelledby="age-label">' +
+                    ageOptions.filter(function (o) { return o.v; }).map(function (o) {
+                      const on = state.ageSelect === o.v;
+                      return '<button type="button" class="chip" data-age-chip="' + esc(o.v) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + esc(o.t) + '</button>';
                     }).join('') +
-                  '</select>' +
+                  '</div>' +
                 '</div>' +
                 '<div style="padding-bottom: 8px;">' +
                   '<button type="button" class="text-link" id="toggle-birthday" aria-expanded="' + (state.useBirthday ? 'true' : 'false') + '">' +
@@ -1942,6 +1958,10 @@
                   '</button>' +
                 '</div>' +
               '</div>' +
+
+              (ageGroup === 'none' && !state.useBirthday
+                ? '<p class="age-hint">Pick an age to see open trial times below.</p>'
+                : '') +
 
               (state.useBirthday
                 ? '<div class="birthday-wrap">' +
@@ -1976,7 +1996,7 @@
               '</div>' +
             '</section>' +
 
-            '<section class="section">' +
+            '<section class="section" id="results">' +
               '<h2>' + esc(listHeading) + '</h2>' +
               listContent +
             '</section>' +
@@ -2150,18 +2170,21 @@
         }
 
         if (route === 'classes') {
-          const ageSelect = document.getElementById('age-select');
-          if (ageSelect) {
-            ageSelect.addEventListener('change', function () {
-              state.ageSelect = ageSelect.value;
+          appEl.querySelectorAll('[data-age-chip]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              state.ageSelect = btn.getAttribute('data-age-chip');
+              state.useBirthday = false;
               state.birthday = '';
               state.computedAge = null;
               state.birthdayError = '';
               state.childAgeText = '';
               saveState();
               render({ preserveScroll: true });
+              // v2: bring the open times into view right after an age is picked
+              const results = document.getElementById('results');
+              if (results) results.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
-          }
+          });
 
           const toggleDob = document.getElementById('toggle-birthday');
           if (toggleDob) {
